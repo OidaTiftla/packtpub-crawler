@@ -5,7 +5,7 @@ class Ifttt(object):
     """
     """
 
-    def __init__(self, config, packpub_info, upload_info):
+    def __init__(self, config, packpub_info, upload_info, disk_info):
         self.__packpub_info = packpub_info
         self.__url = "https://maker.ifttt.com/trigger/{eventName}/with/key/{apiKey}".format(
             eventName=config.get('ifttt', 'ifttt.event_name'),

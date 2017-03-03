@@ -7,16 +7,18 @@ class Gmail(object):
     """
     """
 
-    def __init__(self, config, packpub_info, upload_info):
+    def __init__(self, config, packpub_info, upload_info, disk_info):
         self.__config = config
         self.__packpub_info = packpub_info
         self.__upload_info = upload_info
+        self.__disk_info = disk_info
 
     def __prepare_message(self):
         """
         """
         #log_json(self.__packpub_info)
         #log_json(self.__upload_info)
+        #log_json(self.__disk_info)
 
         msg = MIMEMultipart('alternative')
         msg['Subject'] = "[packtpub-crawler]"
@@ -40,12 +42,16 @@ class Gmail(object):
                     .format(mime_type=detail['mime_type'], download_url=detail['download_url'], name=detail['name'])
             html += "</ul>"
 
+        html += """<img src="{image}" alt="cover" />"""\
+            .format(image=self.__packpub_info['url_image'])
+        if self.__disk_info is not None:
+            html += """<div>The disk usage is {usage} and you have {free} free.</div>"""\
+                .format(usage=self.__disk_info['usage'], free=self.__disk_info['free'])
         html += """\
-            <img src="{image}" alt="cover" />
             <div>Powered by <a href="https://github.com/niqdev/packtpub-crawler">packtpub-crawler</a></div>
           </body>
         </html>
-        """.format(image=self.__packpub_info['url_image'])
+        """
 
         part1 = MIMEText(text, 'plain')
         part2 = MIMEText(html, 'html')
@@ -60,6 +66,7 @@ class Gmail(object):
         """
         #log_json(self.__packpub_info)
         #log_json(self.__upload_info)
+        #log_json(self.__disk_info)
 
         msg = MIMEMultipart('alternative')
         msg['Subject'] = "[packtpub-crawler]"
