@@ -32,7 +32,7 @@ class Notify(object):
         elif service_type == SERVICE_JOIN:
             self.service = Join(config, packpub_info, upload_info, disk_info)
         elif service_type == SERVICE_PUSHOVER:
-            self.service = Pushover(config, packpub_info, upload_info)
+            self.service = Pushover(config, packpub_info, upload_info, disk_info)
 
     def run(self):
         """

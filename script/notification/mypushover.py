@@ -6,7 +6,7 @@ class Pushover(object):
     """
     """
 
-    def __init__(self, config, packpub_info, upload_info):
+    def __init__(self, config, packpub_info, upload_info, disk_info):
         self.__config = config
         self.__packpub_info = packpub_info
         self.__client = Client(self.__config.get('pushover', 'pushover.user_key'), api_token=self.__config.get('pushover', 'pushover.api_key'))
