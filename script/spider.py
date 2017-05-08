@@ -9,7 +9,7 @@ from packtpub import Packtpub
 from upload import Upload, SERVICE_GOOGLE_DRIVE, SERVICE_ONEDRIVE, SERVICE_DROPBOX, SERVICE_SCP
 from database import Database, DB_FIREBASE
 from logs import *
-from notify import Notify, SERVICE_GMAIL, SERVICE_IFTTT, SERVICE_JOIN
+from notify import Notify, SERVICE_GMAIL, SERVICE_IFTTT, SERVICE_JOIN, SERVICE_PUSHOVER
 from noBookException import NoBookException
 from alreadyClaimedException import AlreadyClaimedException
 
@@ -60,14 +60,14 @@ def main():
     parser = argparse.ArgumentParser(
         description='Download FREE eBook every day from www.packtpub.com',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-        version='2.3.0')
+        version='2.4.0')
 
     parser.add_argument('-c', '--config', required=True, help='configuration file')
     parser.add_argument('-d', '--dev', action='store_true', help='only for development')
     parser.add_argument('-e', '--extras', action='store_true', help='download source code (if exists) and book cover')
     parser.add_argument('-u', '--upload', choices=[SERVICE_GOOGLE_DRIVE, SERVICE_ONEDRIVE, SERVICE_DROPBOX, SERVICE_SCP], help='upload to cloud')
     parser.add_argument('-a', '--archive', action='store_true', help='compress all file')
-    parser.add_argument('-n', '--notify', choices=[SERVICE_GMAIL, SERVICE_IFTTT, SERVICE_JOIN], help='notify after claim/download')
+    parser.add_argument('-n', '--notify', choices=[SERVICE_GMAIL, SERVICE_IFTTT, SERVICE_JOIN, SERVICE_PUSHOVER], help='notify after claim/download')
     parser.add_argument('-s', '--store', choices=[DB_FIREBASE], help='store info')
     parser.add_argument('-o', '--claimOnly', action='store_true', help='only claim books (no downloads/uploads)')
 

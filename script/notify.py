@@ -2,11 +2,13 @@ from notification.gmail import Gmail
 from notification.ifttt import Ifttt
 from logs import *
 from notification.join import Join
+from notification.mypushover import Pushover
 from helper.disk_usage import disk_usage, bytes2human
 
 SERVICE_GMAIL = 'gmail'
 SERVICE_IFTTT = 'ifttt'
 SERVICE_JOIN = 'join'
+SERVICE_PUSHOVER = 'pushover'
 
 class Notify(object):
     """
@@ -29,6 +31,8 @@ class Notify(object):
             self.service = Ifttt(config, packpub_info, upload_info, disk_info)
         elif service_type == SERVICE_JOIN:
             self.service = Join(config, packpub_info, upload_info, disk_info)
+        elif service_type == SERVICE_PUSHOVER:
+            self.service = Pushover(config, packpub_info, upload_info)
 
     def run(self):
         """

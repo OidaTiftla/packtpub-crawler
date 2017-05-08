@@ -11,7 +11,7 @@ This crawler automates the following step:
 * download source code and book cover
 * upload files to Google Drive, OneDrive or via scp
 * store data on Firebase
-* notify via email, IFTTT or Join (on success and errors)
+* notify via Gmail, IFTTT, Join or Pushover (on success and errors)
 * schedule daily job on Heroku or with Docker
 
 ### Default command
@@ -41,7 +41,7 @@ python script/spider.py --config config/prod.cfg --all --extras --upload googled
 python script/spider.py -c config/prod.cfg -t epub --upload onedrive
 python script/spider.py --config config/prod.cfg --all --extras --upload onedrive
 
-# download and notify: gmail|ifttt|join
+# download and notify: gmail|ifttt|join|pushover
 python script/spider.py -c config/prod.cfg --notify gmail
 
 # only claim book (no downloads):
@@ -244,6 +244,19 @@ Now you should be able to trigger the event
 python script/spider.py --config config/prod.cfg --notify join
 ```
 
+### Pushover notification
+
+* Get your [USER_KEY](https://pushover.net/)
+* Create a [new application](https://pushover.net/apps/build)
+* (Optional) Add an [icon](https://pushover.net/icons/9aqpv697p9g6wzo.png)
+* Change your pushover credentials in the config file
+
+```
+[pushover]
+pushover.user_key=PUSHOVER_USER_KEY
+pushover.api_key=PUSHOVER_API_KEY
+```
+
 ### Heroku
 
 Create a new branch
@@ -267,7 +280,7 @@ Create, config and deploy the scheduler
 ```bash
 heroku login
 # create a new app
-heroku create APP_NAME
+heroku create APP_NAME --region eu
 # or if you already have an existing app
 heroku git:remote -a APP_NAME
 
@@ -290,7 +303,7 @@ More info about Heroku [Scheduler](https://devcenter.heroku.com/articles/schedul
 
 Build your image
 ```
-docker build -t niqdev/packtpub-crawler:2.3.0 .
+docker build -t niqdev/packtpub-crawler:2.4.0 .
 ```
 
 Run manually
@@ -298,7 +311,7 @@ Run manually
 docker run \
   --rm \
   --name my-packtpub-crawler \
-  niqdev/packtpub-crawler:2.3.0 \
+  niqdev/packtpub-crawler:2.4.0 \
   python script/spider.py --config config/prod.cfg
 ```
 
@@ -307,7 +320,7 @@ Run scheduled crawler in background
 docker run \
   --detach \
   --name my-packtpub-crawler \
-  niqdev/packtpub-crawler:2.3.0
+  niqdev/packtpub-crawler:2.4.0
 
 # useful commands
 docker exec -i -t my-packtpub-crawler bash
