@@ -21,7 +21,7 @@ class Gmail(object):
         #log_json(self.__disk_info)
 
         msg = MIMEMultipart('alternative')
-        msg['Subject'] = "[packtpub-crawler]"
+        msg['Subject'] = "[packtpub-crawler] {title}".format(title=self.__packpub_info['title'].encode('utf-8'))
         msg['From'] = self.__config.get('gmail', 'gmail.from')
         msg['To'] = self.__config.get('gmail', 'gmail.to')
 
@@ -69,7 +69,7 @@ class Gmail(object):
         #log_json(self.__disk_info)
 
         msg = MIMEMultipart('alternative')
-        msg['Subject'] = "[packtpub-crawler]"
+        msg['Subject'] = "[packtpub-crawler] {title}".format(title=self.__packpub_info['title'].encode('utf-8'))
         msg['From'] = self.__config.get('gmail', 'gmail.from')
         msg['To'] = self.__config.get('gmail', 'gmail.to')
 
